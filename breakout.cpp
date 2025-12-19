@@ -84,53 +84,20 @@ void update()
             }
         }
     if (game_state == victory_state) {
+
+        if (!victory_initialized) {
+            derive_graphics_metrics();
+            init_victory_menu();
+            victory_initialized = true;
+        }
+
         victory_timer += GetFrameTime();
         victory_animation_angle += GetFrameTime() * 360.0f;
 
         if (IsKeyPressed(KEY_ENTER)) {
             load_level(0);
             game_state = in_game_state;
-            return;
-        }
-
-        if (IsKeyPressed(KEY_N)) {
-            if (current_level_index + 1 < level_count) {
-                current_level_index++;
-                load_level(0);
-                game_state = in_game_state;
-            }
-            return;
-        }
-
-        if (IsKeyPressed(KEY_B)) {
-
-            if (current_level_index > 0) {
-                current_level_index--;
-                load_level(0);
-                game_state = in_game_state;
-            }
-            return;
-        }
-
-        if (IsKeyPressed(KEY_S)) {
-            game_state = level_select_state;
-            return;
-        }
-
-        return;
-    }
-    if (game_state == victory_state) {
-
-        if (!victory_initialized) {
-            init_victory_menu();
-            victory_initialized = true;
-        }
-
-        if (IsKeyPressed(KEY_ENTER)) {
-            load_level(0);
-            game_state = in_game_state;
             victory_initialized = false;
-            return;
         }
 
         if (IsKeyPressed(KEY_N)) {
@@ -140,7 +107,6 @@ void update()
                 game_state = in_game_state;
                 victory_initialized = false;
             }
-            return;
         }
 
         if (IsKeyPressed(KEY_B)) {
@@ -150,16 +116,12 @@ void update()
                 game_state = in_game_state;
                 victory_initialized = false;
             }
-            return;
         }
 
         if (IsKeyPressed(KEY_S)) {
             game_state = level_select_state;
             victory_initialized = false;
-            return;
         }
-
-        return;
     }
 
     }
