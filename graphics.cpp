@@ -191,14 +191,44 @@ void draw_pause_menu()
     ClearBackground(BLACK);
 
     const Text paused_title = {
-        "Press Escape to Resume",
-        { 0.50f, 0.50f },
-        32.0f,
+        "PAUSED",
+        { 0.50f, 0.35f },
+        48.0f,
         WHITE,
         4.0f,
         &menu_font
     };
     draw_text(paused_title);
+
+    const Text resume_text = {
+        "ESC - Resume Game",
+        { 0.50f, 0.50f },
+        28.0f,
+        WHITE,
+        2.0f,
+        &menu_font
+    };
+    draw_text(resume_text);
+
+    const Text menu_text = {
+        "M - Back to Menu",
+        { 0.50f, 0.58f },
+        28.0f,
+        WHITE,
+        2.0f,
+        &menu_font
+    };
+    draw_text(menu_text);
+
+    const Text level_select_text = {
+        "S - Level Select",
+        { 0.50f, 0.66f },
+        28.0f,
+        WHITE,
+        2.0f,
+        &menu_font
+    };
+    draw_text(level_select_text);
 }
 
 void init_victory_menu()
@@ -257,4 +287,41 @@ void draw_victory_menu()
         &menu_font
     };
     draw_text(victory_subtitle);
+}
+
+void draw_level_select_menu()
+{
+    ClearBackground(BLACK);
+
+    Text title = {
+        "Select Level",
+        { 0.5f, 0.25f },
+        96.0f,
+        RED,
+        4.0f,
+        &menu_font
+    };
+    draw_text(title);
+
+    for (size_t i = 0; i < level_count; ++i) {
+        Text level_text = {
+            "Press " + std::to_string(i + 1) + " - Level " + std::to_string(i + 1),
+            { 0.5f, 0.40f + 0.08f * i },
+            32.0f,
+            WHITE,
+            4.0f,
+            &menu_font
+        };
+        draw_text(level_text);
+    }
+
+    Text back_text = {
+        "M - Back to Menu",
+        { 0.5f, 0.85f },
+        28.0f,
+        WHITE,
+        4.0f,
+        &menu_font
+    };
+    draw_text(back_text);
 }
