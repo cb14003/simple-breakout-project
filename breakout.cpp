@@ -77,10 +77,91 @@ void update()
                 PlaySound(lose_sound);
             }
             else if (current_level_blocks == 0) {
-                load_level(1);
                 PlaySound(win_sound);
+                game_state = victory_state;
+                victory_timer = 0.0f;
+                return;
             }
         }
+    if (game_state == victory_state) {
+        victory_timer += GetFrameTime();
+        victory_animation_angle += GetFrameTime() * 360.0f;
+
+        if (IsKeyPressed(KEY_ENTER)) {
+            load_level(0);
+            game_state = in_game_state;
+            return;
+        }
+
+        if (IsKeyPressed(KEY_N)) {
+            if (current_level_index + 1 < level_count) {
+                current_level_index++;
+                load_level(0);
+                game_state = in_game_state;
+            }
+            return;
+        }
+
+        if (IsKeyPressed(KEY_B)) {
+
+            if (current_level_index > 0) {
+                current_level_index--;
+                load_level(0);
+                game_state = in_game_state;
+            }
+            return;
+        }
+
+        if (IsKeyPressed(KEY_S)) {
+            game_state = level_select_state;
+            return;
+        }
+
+        return;
+    }
+    if (game_state == victory_state) {
+
+        if (!victory_initialized) {
+            init_victory_menu();
+            victory_initialized = true;
+        }
+
+        if (IsKeyPressed(KEY_ENTER)) {
+            load_level(0);
+            game_state = in_game_state;
+            victory_initialized = false;
+            return;
+        }
+
+        if (IsKeyPressed(KEY_N)) {
+            if (current_level_index + 1 < level_count) {
+                current_level_index++;
+                load_level(0);
+                game_state = in_game_state;
+                victory_initialized = false;
+            }
+            return;
+        }
+
+        if (IsKeyPressed(KEY_B)) {
+            if (current_level_index > 0) {
+                current_level_index--;
+                load_level(0);
+                game_state = in_game_state;
+                victory_initialized = false;
+            }
+            return;
+        }
+
+        if (IsKeyPressed(KEY_S)) {
+            game_state = level_select_state;
+            victory_initialized = false;
+            return;
+        }
+
+        return;
+    }
+
     }
 
 void draw() {

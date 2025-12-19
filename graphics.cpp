@@ -268,25 +268,20 @@ void draw_victory_menu()
         DrawCircleV({ x, y }, victory_balls_size, WHITE);
     }
 
-    const Text victory_title = {
-        "Victory!",
-        { 0.50f, 0.50f },
-        100.0f,
-        RED,
-        4.0f,
-        &menu_font
-    };
+    const Text victory_title = {"Victory!", {0.50f, 0.50f}, 100.0f, RED, 4.0f, &menu_font};
     draw_text(victory_title);
 
-    const Text victory_subtitle = {
-        "Press Enter to Restart",
-        { 0.50f, 0.65f },
-        32.0f,
-        WHITE,
-        4.0f,
-        &menu_font
-    };
+    const Text victory_subtitle = {"Press Enter to Restart", {0.50f, 0.65f}, 32.0f, WHITE, 4.0f, &menu_font};
     draw_text(victory_subtitle);
+
+    const Text next_level_text = {"N - Next Level", {0.50f, 0.72f}, 32.0f, WHITE, 4.0f, &menu_font};
+    draw_text(next_level_text);
+
+    const Text prev_level_text = {"B - Previous Level", {0.50f, 0.79f}, 32.0f, WHITE, 4.0f, &menu_font};
+    draw_text(prev_level_text);
+
+    const Text menu_text = {"S - Level Select", {0.50f, 0.86f}, 32.0f, WHITE, 4.0f, &menu_font};
+    draw_text(menu_text);
 }
 
 void draw_level_select_menu()
