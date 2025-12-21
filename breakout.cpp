@@ -32,6 +32,7 @@ void update()
                 if (IsKeyPressed(KEY_ONE + i)) {
                     current_level_index = i;
                     load_level(0);
+                    player_score = 0;
                     game_state = in_game_state;
                     return;
                 }
@@ -73,16 +74,43 @@ void update()
 
         if (game_state == in_game_state) {
             if (!is_ball_inside_level()) {
-                load_level();
+                game_state = game_over_state;
+                game_over_initialized = false;
                 PlaySound(lose_sound);
             }
             else if (current_level_blocks == 0) {
+                player_score += 1000;
                 PlaySound(win_sound);
                 game_state = victory_state;
                 victory_timer = 0.0f;
                 return;
             }
         }
+
+    if (game_state == game_over_state) {
+        if (!game_over_initialized) {
+            derive_graphics_metrics();
+            game_over_initialized = true;
+        }
+
+        if (IsKeyPressed(KEY_ENTER)) {
+            load_level(0);
+            player_score = 0;
+            game_state = in_game_state;
+            game_over_initialized = false;
+        }
+
+        if (IsKeyPressed(KEY_S)) {
+            game_state = level_select_state;
+            game_over_initialized = false;
+        }
+
+        if (IsKeyPressed(KEY_M)) {
+            game_state = menu_state;
+            game_over_initialized = false;
+        }
+    }
+
     if (game_state == victory_state) {
 
         if (!victory_initialized) {
@@ -149,6 +177,10 @@ void draw() {
     case level_select_state:
         draw_level_select_menu();
         break;
+
+    case game_over_state:
+        draw_game_over_menu();
+        break;
     }
 }
 
@@ -163,6 +195,8 @@ int main()
     load_textures();
     load_level();
     load_sounds();
+
+    player_score = 0;
 
     while (!WindowShouldClose()) {
         BeginDrawing();

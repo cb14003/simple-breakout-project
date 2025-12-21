@@ -140,13 +140,23 @@ void draw_ui()
 
     const Text boxes_remaining = {
         "BLOCKS " + std::to_string(current_level_blocks),
-        { 0.5f, 0.9625f },
+        { 0.5f, 0.925f },
         48.0f,
         WHITE,
         4.0f,
         &menu_font
     };
     draw_text(boxes_remaining);
+
+    const Text score_display = {
+        "SCORE: " + std::to_string(player_score),
+        { 0.5f, 0.9625f },
+        48.0f,
+        YELLOW,
+        4.0f,
+        &menu_font
+    };
+    draw_text(score_display);
 }
 
 void draw_level()
@@ -268,8 +278,18 @@ void draw_victory_menu()
         DrawCircleV({ x, y }, victory_balls_size, WHITE);
     }
 
-    const Text victory_title = {"Victory!", {0.50f, 0.50f}, 100.0f, RED, 4.0f, &menu_font};
+    const Text victory_title = {"Victory!", {0.50f, 0.40f}, 100.0f, RED, 4.0f, &menu_font};
     draw_text(victory_title);
+
+    const Text score_text = {
+        "Score: " + std::to_string(player_score),
+        { 0.50f, 0.55f },
+        48.0f,
+        YELLOW,
+        4.0f,
+        &menu_font
+    };
+    draw_text(score_text);
 
     const Text victory_subtitle = {"Press Enter to Restart", {0.50f, 0.65f}, 32.0f, WHITE, 4.0f, &menu_font};
     draw_text(victory_subtitle);
@@ -319,4 +339,59 @@ void draw_level_select_menu()
         &menu_font
     };
     draw_text(back_text);
+}
+
+void draw_game_over_menu()
+{
+    ClearBackground(BLACK);
+
+    const Text game_over_title = {
+        "GAME OVER",
+        { 0.50f, 0.35f },
+        96.0f,
+        RED,
+        4.0f,
+        &menu_font
+    };
+    draw_text(game_over_title);
+
+    const Text score_text = {
+        "Score: " + std::to_string(player_score),
+        { 0.50f, 0.50f },
+        48.0f,
+        WHITE,
+        4.0f,
+        &menu_font
+    };
+    draw_text(score_text);
+
+    const Text restart_text = {
+        "ENTER - Restart Level",
+        { 0.50f, 0.65f },
+        32.0f,
+        WHITE,
+        4.0f,
+        &menu_font
+    };
+    draw_text(restart_text);
+
+    const Text level_select_text = {
+        "S - Level Select",
+        { 0.50f, 0.73f },
+        32.0f,
+        WHITE,
+        4.0f,
+        &menu_font
+    };
+    draw_text(level_select_text);
+
+    const Text menu_text = {
+        "M - Back to Menu",
+        { 0.50f, 0.81f },
+        32.0f,
+        WHITE,
+        4.0f,
+        &menu_font
+    };
+    draw_text(menu_text);
 }

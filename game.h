@@ -20,11 +20,15 @@ enum game_state {
     level_select_state,
     in_game_state,
     paused_state,
-    victory_state
+    victory_state,
+    game_over_state
 };
 
 inline float victory_timer = 0.0f;
 inline float victory_animation_angle = 0.0f;
+inline bool victory_initialized = false;
+inline int player_score = 0;
+inline bool game_over_initialized = false;
 
 inline char level_1_data[] = {
     '#', '#', '#', '#', '#', '#', '#', '#', '#',
@@ -142,7 +146,5 @@ inline level levels[level_count] = {
 
 
 inline game_state game_state = menu_state;
-
-inline bool victory_initialized = false;
 
 #endif // GAME_H

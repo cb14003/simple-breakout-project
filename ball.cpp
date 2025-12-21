@@ -2,11 +2,14 @@
 #include "assets.h"
 #include "level.h"
 #include "paddle.h"
+#include "game.h"
 
 #include "raylib.h"
 
 #include <cmath>
 #include <numbers>
+
+extern int player_score;
 
 void spawn_ball()
 {
@@ -55,6 +58,7 @@ void move_ball()
 
         temp = VOID;
         --current_level_blocks;
+        player_score += 100;
     } else if (is_colliding_with_paddle(next_ball_pos, ball_size)) {
         ball_vel.y = -std::abs(ball_vel.y);
     }

@@ -8,6 +8,7 @@
 #include "raylib.h"
 
 char* current_level_data;
+extern int player_score;
 
 void load_level(const int offset)
 {
