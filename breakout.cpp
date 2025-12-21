@@ -22,6 +22,7 @@ void update()
 
             if (IsKeyPressed(KEY_ENTER)) {
                 game_state = level_select_state;
+                PlaySound(selecting_sound);
                 return;
             }
         }
@@ -33,6 +34,7 @@ void update()
                     current_level_index = i;
                     load_level(0);
                     player_score = 0;
+                    PlaySound(selecting_sound);
                     game_state = in_game_state;
                     return;
                 }
@@ -40,6 +42,7 @@ void update()
 
             if (IsKeyPressed(KEY_M)) {
                 game_state = menu_state;
+                PlaySound(selecting_sound);
             }
         }
 
@@ -47,11 +50,13 @@ void update()
 
             if (game_state == in_game_state) {
                 game_state = paused_state;
+                PlaySound(selecting_sound);
                 return;
             }
 
             if (game_state == paused_state) {
                 game_state = in_game_state;
+                PlaySound(selecting_sound);
                 return;
             }
         }
@@ -59,10 +64,12 @@ void update()
         if (game_state == paused_state) {
             if (IsKeyPressed(KEY_M)) {
                 game_state = menu_state;
+                PlaySound(selecting_sound);
             }
 
             if (IsKeyPressed(KEY_S)) {
                 game_state = level_select_state;
+                PlaySound(selecting_sound);
             }
 
             return;
@@ -94,12 +101,15 @@ void update()
 
             coins_earned_this_game = player_score / 10;
             player_coins += coins_earned_this_game;
+
+            PlaySound(losing_sound);
         }
 
         if (IsKeyPressed(KEY_ENTER)) {
             load_level(0);
             game_state = in_game_state;
             game_over_initialized = false;
+            PlaySound(selecting_sound);
             player_score = 0;
             coins_earned_this_game = 0;
         }
@@ -107,6 +117,7 @@ void update()
         if (IsKeyPressed(KEY_S)) {
             game_state = level_select_state;
             game_over_initialized = false;
+            PlaySound(selecting_sound);
             player_score = 0;
             coins_earned_this_game = 0;
         }
@@ -114,6 +125,7 @@ void update()
         if (IsKeyPressed(KEY_M)) {
             game_state = menu_state;
             game_over_initialized = false;
+            PlaySound(selecting_sound);
             player_score = 0;
             coins_earned_this_game = 0;
         }
@@ -128,6 +140,8 @@ void update()
 
             coins_earned_this_game = player_score / 10;
             player_coins += coins_earned_this_game;
+
+            PlaySound(victory_sound);
         }
 
         victory_timer += GetFrameTime();
@@ -137,6 +151,7 @@ void update()
             load_level(0);
             game_state = in_game_state;
             victory_initialized = false;
+            PlaySound(selecting_sound);
             player_score = 0;
             coins_earned_this_game = 0;
         }
@@ -147,6 +162,7 @@ void update()
                 load_level(0);
                 game_state = in_game_state;
                 victory_initialized = false;
+                PlaySound(selecting_sound);
                 player_score = 0;
                 coins_earned_this_game = 0;
             }
@@ -158,6 +174,7 @@ void update()
                 load_level(0);
                 game_state = in_game_state;
                 victory_initialized = false;
+                PlaySound(selecting_sound);
                 player_score = 0;
                 coins_earned_this_game = 0;
             }
@@ -166,6 +183,7 @@ void update()
         if (IsKeyPressed(KEY_S)) {
             game_state = level_select_state;
             victory_initialized = false;
+            PlaySound(selecting_sound);
             player_score = 0;
             coins_earned_this_game = 0;
         }
