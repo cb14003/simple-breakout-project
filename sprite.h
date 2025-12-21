@@ -5,16 +5,6 @@
 
 #include <string>
 
-// struct sprite {
-//     size_t frame_count = 0;
-//     size_t frames_to_skip = 3;
-//     size_t frames_skipped = 0;
-//     size_t frame_index = 0;
-//     bool loop = true;
-//     size_t prev_game_frame = 0;
-//     Texture2D* frames = nullptr;
-// };
-
 struct sprite {
     size_t frame_count;
     size_t frames_to_skip;
