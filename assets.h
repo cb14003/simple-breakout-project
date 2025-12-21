@@ -22,6 +22,7 @@ inline Sound losing_sound;
 inline Sound wall_hit_sound;
 inline Sound block_hit_sound;
 inline Sound paddle_hit_sound;
+inline Sound background_sound;
 
 void load_fonts();
 void unload_fonts();

@@ -9,6 +9,10 @@
 
 void update()
 {
+    if (!IsSoundPlaying(background_sound)) {
+        PlaySound(background_sound);
+    }
+
     if (game_state == in_game_state) {
         if (IsKeyDown(KEY_A) || IsKeyDown(KEY_LEFT)) {
             move_paddle(-paddle_speed);

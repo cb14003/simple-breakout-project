@@ -41,7 +41,7 @@ void load_sounds()
     wall_hit_sound = LoadSound("data/sounds/wall_hit.wav");
     block_hit_sound  = LoadSound("data/sounds/block_hit.wav");
     paddle_hit_sound = LoadSound("data/sounds/paddle_hit.wav");
-
+    background_sound = LoadSound("data/sounds/background.wav");
 }
 
 void unload_sounds()
@@ -54,5 +54,6 @@ void unload_sounds()
     UnloadSound(wall_hit_sound);
     UnloadSound(block_hit_sound);
     UnloadSound(paddle_hit_sound);
+    UnloadSound(background_sound);
     CloseAudioDevice();
 }
