@@ -2,6 +2,7 @@
 #define GAME_H
 
 #include <cstddef>
+#include <string>
 
 constexpr char VOID = ' ';
 constexpr char WALL = '#';
@@ -15,13 +16,32 @@ struct level {
     char* data = nullptr;
 };
 
+struct BallSkin {
+    std::string name;
+    std::string texturePath;
+    int price;
+    bool purchased;
+    bool equipped;
+};
+
+inline BallSkin ballSkins[] = {
+    {"Basic Ball", "data/images/ball/ball0.png", 0, true, true},
+    {"Fire Ball", "data/images/ball/ball1.png", 100, false, false},
+    {"Ice Ball", "data/images/ball/ball2.png", 200, false, false},
+    {"Gold Ball", "data/images/ball/ball3.png", 300, false, false}
+};
+
+inline constexpr size_t ballSkinCount = 4;
+inline size_t selectedSkinIndex = 0;
+
 enum game_state {
     menu_state,
     level_select_state,
     in_game_state,
     paused_state,
     victory_state,
-    game_over_state
+    game_over_state,
+    shop_state
 };
 
 inline float victory_timer = 0.0f;

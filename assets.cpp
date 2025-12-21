@@ -1,4 +1,5 @@
 #include "assets.h"
+#include "game.h"
 
 #include "raylib.h"
 
@@ -18,8 +19,21 @@ void load_textures()
     void_texture = LoadTexture("data/images/void.png");
     block_texture = LoadTexture("data/images/block.png");
     paddle_texture = LoadTexture("data/images/paddle.png");
-    ball_sprite = load_sprite("data/images/ball/ball", ".png", 8, true, 10);
-}
+
+    for (size_t i = 0; i < ballSkinCount; ++i) {
+        ball_skins[i] = LoadTexture(ballSkins[i].texturePath.c_str());
+    }
+
+    ball_sprite.frame_count = 1;
+    ball_sprite.frames_to_skip = 0;
+    ball_sprite.frame_index = 0;
+    ball_sprite.frames_skipped = 0;
+    ball_sprite.loop = false;
+    ball_sprite.prev_game_frame = 0;
+
+    ball_sprite.frames = new Texture2D[1];
+    ball_sprite.frames[0] = ball_skins[0];
+    }
 
 void unload_textures()
 {
@@ -28,6 +42,15 @@ void unload_textures()
     UnloadTexture(block_texture);
     UnloadTexture(paddle_texture);
     unload_sprite(ball_sprite);
+
+    for (size_t i = 0; i < ballSkinCount; ++i) {
+        UnloadTexture(ball_skins[i]);
+    }
+
+    if (ball_sprite.frames != nullptr) {
+        delete[] ball_sprite.frames;
+        ball_sprite.frames = nullptr;
+    }
 }
 
 void load_sounds()

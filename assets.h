@@ -4,6 +4,7 @@
 #include "raylib.h"
 
 #include "sprite.h"
+#include "game.h"
 
 inline Font menu_font;
 
@@ -13,6 +14,7 @@ inline Texture2D paddle_texture;
 inline Texture2D block_texture;
 
 inline sprite ball_sprite;
+inline Texture2D ball_skins[ballSkinCount];
 
 inline Sound win_sound;
 inline Sound lose_sound;

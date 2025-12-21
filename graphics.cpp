@@ -4,6 +4,7 @@
 #include "ball.h"
 #include "level.h"
 #include "paddle.h"
+#include "game.h"
 
 #include "raylib.h"
 
@@ -107,7 +108,7 @@ void draw_menu()
 
     const Text game_title = {
         "Breakout",
-        { 0.50f, 0.50f },
+        { 0.50f, 0.40f },
         200.0f,
         RED,
         4.0f,
@@ -117,13 +118,33 @@ void draw_menu()
 
     const Text game_subtitle = {
         "Press Enter to Start",
-        { 0.50f, 0.65f },
+        { 0.50f, 0.60f },
         32.0f,
         WHITE,
         4.0f,
         &menu_font
     };
     draw_text(game_subtitle);
+
+    const Text shop_text = {
+        "Press T for Ball Skin Shop",
+        { 0.50f, 0.68f },
+        32.0f,
+        GOLD,
+        4.0f,
+        &menu_font
+    };
+    draw_text(shop_text);
+
+    const Text coins_text = {
+        "Coins: " + std::to_string(player_coins),
+        { 0.50f, 0.76f },
+        32.0f,
+        YELLOW,
+        4.0f,
+        &menu_font
+    };
+    draw_text(coins_text);
 }
 
 void draw_ui()
@@ -444,4 +465,120 @@ void draw_game_over_menu()
         &menu_font
     };
     draw_text(menu_text);
+}
+
+void draw_shop_menu()
+{
+    ClearBackground(BLACK);
+
+    const Text shop_title = {
+        "BALL SKIN SHOP",
+        { 0.50f, 0.10f },
+        96.0f,
+        GOLD,
+        4.0f,
+        &menu_font
+    };
+    draw_text(shop_title);
+
+    const Text coins_text = {
+        "Your Coins: " + std::to_string(player_coins),
+        { 0.50f, 0.20f },
+        48.0f,
+        YELLOW,
+        4.0f,
+        &menu_font
+    };
+    draw_text(coins_text);
+
+    float startY = 0.30f;
+    float spacing = 0.10f;
+
+    for (size_t i = 0; i < ballSkinCount; i++) {
+        const BallSkin& skin = ballSkins[i];
+
+        Color textColor = WHITE;
+        std::string statusText = "";
+
+        if (skin.equipped) {
+            textColor = GREEN;
+            statusText = " [EQUIPPED]";
+        } else if (skin.purchased) {
+            textColor = BLUE;
+            statusText = " [PURCHASED]";
+        } else {
+            textColor = WHITE;
+            statusText = " - " + std::to_string(skin.price) + " coins";
+        }
+
+        std::string skinText = skin.name + statusText;
+
+        Text skin_display = {
+            skinText,
+            { 0.50f, startY + i * spacing },
+            32.0f,
+            textColor,
+            4.0f,
+            &menu_font
+        };
+        draw_text(skin_display);
+
+        if (i == selectedSkinIndex) {
+            const Text selector = {
+                ">",
+                { 0.40f, startY + i * spacing },
+                32.0f,
+                RED,
+                4.0f,
+                &menu_font
+            };
+            draw_text(selector);
+
+            float previewX = screen_size.x * 0.70f;
+            float previewY = screen_size.y * (startY + i * spacing) - 25.0f;
+            float previewSize = 50.0f;
+
+            draw_image(ball_skins[i], previewX, previewY, previewSize);
+        }
+    }
+
+    const Text instructions1 = {
+        "UP/DOWN - Select Skin",
+        { 0.50f, 0.75f },
+        28.0f,
+        WHITE,
+        2.0f,
+        &menu_font
+    };
+    draw_text(instructions1);
+
+    const Text instructions2 = {
+        "ENTER - Buy/Equip",
+        { 0.50f, 0.80f },
+        28.0f,
+        WHITE,
+        2.0f,
+        &menu_font
+    };
+    draw_text(instructions2);
+
+    const Text instructions3 = {
+        "M - Back to Menu",
+        { 0.50f, 0.85f },
+        28.0f,
+        WHITE,
+        2.0f,
+        &menu_font
+    };
+    draw_text(instructions3);
+
+    const Text how_to_shop = {
+        "Press T in Main Menu to access Shop",
+        { 0.50f, 0.92f },
+        24.0f,
+        GRAY,
+        2.0f,
+        &menu_font
+    };
+    draw_text(how_to_shop);
 }

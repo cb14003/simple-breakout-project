@@ -29,6 +29,11 @@ void update()
                 PlaySound(selecting_sound);
                 return;
             }
+            if (IsKeyPressed(KEY_T)) {
+                game_state = shop_state;
+                PlaySound(selecting_sound);
+                return;
+            }
         }
 
         if (game_state == level_select_state) {
@@ -49,6 +54,58 @@ void update()
                 PlaySound(selecting_sound);
             }
         }
+
+    if (game_state == shop_state) {
+
+        if (IsKeyPressed(KEY_UP) || IsKeyPressed(KEY_W)) {
+            if (selectedSkinIndex > 0) {
+                selectedSkinIndex--;
+                PlaySound(selecting_sound);
+            }
+        }
+
+        if (IsKeyPressed(KEY_DOWN) || IsKeyPressed(KEY_S)) {
+            if (selectedSkinIndex < ballSkinCount - 1) {
+                selectedSkinIndex++;
+                PlaySound(selecting_sound);
+            }
+        }
+
+        if (IsKeyPressed(KEY_M)) {
+            game_state = menu_state;
+            PlaySound(selecting_sound);
+        }
+
+        if (IsKeyPressed(KEY_ENTER)) {
+            BallSkin& selectedSkin = ballSkins[selectedSkinIndex];
+
+            if (selectedSkin.purchased) {
+                for (size_t i = 0; i < ballSkinCount; ++i) {
+                    ballSkins[i].equipped = false;
+                }
+                selectedSkin.equipped = true;
+
+                ball_sprite.frames[0] = ball_skins[selectedSkinIndex];
+                PlaySound(selecting_sound);
+            }
+            else if (player_coins >= selectedSkin.price) {
+                player_coins -= selectedSkin.price;
+                selectedSkin.purchased = true;
+
+                for (size_t i = 0; i < ballSkinCount; ++i) {
+                    ballSkins[i].equipped = false;
+                }
+                selectedSkin.equipped = true;
+
+                ball_sprite.frames[0] = ball_skins[selectedSkinIndex];
+                PlaySound(selecting_sound);
+            } else {
+                PlaySound(lose_sound);
+            }
+        }
+
+        return;
+    }
 
         if (IsKeyPressed(KEY_ESCAPE)) {
 
@@ -221,6 +278,10 @@ void draw() {
 
     case game_over_state:
         draw_game_over_menu();
+        break;
+
+    case shop_state:
+        draw_shop_menu();
         break;
     }
 }
