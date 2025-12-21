@@ -39,6 +39,8 @@ void load_sounds()
     selecting_sound = LoadSound("data/sounds/selecting.wav");
     losing_sound = LoadSound("data/sounds/losing.wav");
     wall_hit_sound = LoadSound("data/sounds/wall_hit.wav");
+    block_hit_sound  = LoadSound("data/sounds/block_hit.wav");
+    paddle_hit_sound = LoadSound("data/sounds/paddle_hit.wav");
 
 }
 
@@ -50,5 +52,7 @@ void unload_sounds()
     UnloadSound(selecting_sound);
     UnloadSound(losing_sound);
     UnloadSound(wall_hit_sound);
+    UnloadSound(block_hit_sound);
+    UnloadSound(paddle_hit_sound);
     CloseAudioDevice();
 }

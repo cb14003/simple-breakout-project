@@ -35,14 +35,25 @@ void move_ball()
         ball_pos.y + ball_vel.y
     };
 
+    bool played_wall_sound = false;
+    bool played_block_sound = false;
+
     if (is_colliding_with_level_cell(next_ball_pos, ball_size, WALL)) {
         if (is_colliding_with_level_cell({ next_ball_pos.x, ball_pos.y }, ball_size, WALL)) {
             ball_vel.x = -ball_vel.x;
             next_ball_pos.x = std::round(next_ball_pos.x);
+            if (!played_wall_sound) {
+                PlaySound(wall_hit_sound);
+                played_wall_sound = true;
+            }
         }
         if (is_colliding_with_level_cell({ ball_pos.x, next_ball_pos.y }, ball_size, WALL)) {
             ball_vel.y = -ball_vel.y;
             next_ball_pos.y = std::round(next_ball_pos.y);
+            if (!played_wall_sound) {
+                PlaySound(wall_hit_sound);
+                played_wall_sound = true;
+            }
         }
     } else if (is_colliding_with_level_cell(next_ball_pos, ball_size, BLOCKS)) {
         char& temp = get_colliding_level_cell(next_ball_pos, ball_size, BLOCKS);
@@ -59,6 +70,15 @@ void move_ball()
         temp = VOID;
         --current_level_blocks;
         player_score += 100;
+
+        if (!played_block_sound) {
+            PlaySound(block_hit_sound);
+            played_block_sound = true;
+        }
+    } else if (is_colliding_with_paddle(next_ball_pos, ball_size)) {
+        ball_vel.y = -std::abs(ball_vel.y);
+        PlaySound(paddle_hit_sound);
+
     } else if (is_colliding_with_paddle(next_ball_pos, ball_size)) {
         ball_vel.y = -std::abs(ball_vel.y);
     }
