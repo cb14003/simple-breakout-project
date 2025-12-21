@@ -1,136 +1,209 @@
-# Simple Breakout
+# Simple Breakout - Classic Arcade Game
 
-![Breakout](https://i.postimg.cc/FzBNx6FK/Screenshot-20251103-175907.png)
+Project Overview
 
----
-
-The primary goal of this project is to build a simple [Breakout](https://en.wikipedia.org/wiki/Breakout_(video_game)) game written in C++ using the [raylib](https://www.raylib.com) graphics library. In this game, the player controls a paddle that keeps the ball within the level, which destroys blocks upon contact. The objective of the game is to navigate through a series of levels, cleaning all levels of blocks.
-
-The game should adhere to the best structured and procedural programming principles. You should strive to effectively utilize structured programming constructs such as selection constructs and loops. Additionally, endeavor to achieve procedural decomposition of your code into functions. Ensure consistent formatting in your code, adhering to coding style best practices, including proper naming, indentation, use of white spaces, blank lines, and comments.
-
-Be creative, and ensure to implement all the requirements outlined below in your project.
+**Simple Breakout** is a classic arcade game implemented in C++ using the Raylib graphics library. The player controls a platform, bouncing a ball and destroying blocks across six unique levels. The project demonstrates the application of procedural programming, modularity, and graphics principles.
 
 ---
 
-## Core Requirements
+##  Features
 
-* **Title or Menu Screen**: The game should start with a title screen featuring a game logo and a message to start the game. Alternatively, it could be a menu screen with options to start the game, view the instructions, or quit the game.
+### **1. Core Gameplay**
+-  **Six unique levels** with varying block layouts and obstacles
+-  **Ball physics** with realistic bounces off walls, blocks, and platforms
+-  **Platform controls** (A/D or ←/→ keys)
+-  **Block destruction** upon collision with the ball
 
-![Title Screen](https://i.postimg.cc/ZRXBRS8N/Screenshot-20251029-161437.png)
+### **2. Menu System and User Interface (UI/UX)**
+-  **Main Menu** with "Start Game" option
+-  **Level Select Menu** (press 1-6 to select a level)
+-  **Pause Screen** (ESC to pause, resume, or exit to the menu)
+-  **Victory Screen** with animation and statistics
+-  **Game Over Screen** with final score
+-  **Skin Shop** (T to access from the main menu)
+-  **In-Game Interface** displaying:
+- Current Level
+- Number of Remaining Blocks
+- Current Score
 
-* **Game Screen**: From the title or menu screen, the player should be able to start the game. The game screen displays the paddle, the ball, and the level. The player moves the paddle using the keyboard. The goal is to move from one level to the next by destroying all the blocks in every level. In our game, the objective of the player is to reach the end by passing through all the levels.
+### **3. Economy System**
+-  **Points System** (+100 points for each destroyed block)
+-  **Bonus Points** (+1000 points for completing a level)
+-  **Coins System**:
+- 100 points = 10 coins
+- Coins accumulate throughout the game
+- Points reset when starting a new level
+- Coins display in the main menu and level select menu
 
-![Game Screen, Level 2](https://i.postimg.cc/FzBNx6FK/Screenshot-20251103-175907.png)
+### **4. Ball Skin Shop**
+- **Four different skins for the ball**:
+- **Basic Ball** (basic, free) - `ball0.png`
+- **Fire Ball** (cost: 100 coins) - `ball1.png`
+- **Ice Ball** (cost: 200 coins) - `ball2.png`
+- **Gold Ball** (cost: 300 coins) - `ball3.png`
+- **Purchase and equip mechanics**:
+- Shop navigation (W/S or Up/Down keys)
+- Purchasing skins with coins (ENTER)
+- Equipping already purchased skins
+- Visual highlighting of the selected and equipped skin
+- Skin preview in the shop
 
-* **Pause Screen**: The player should be able to pause the game by pressing the Escape key. A 'Pause' screen appears with an option to resume the game. Pressing the Escape key resumes the game.
+### **5. Sound System**
+- **Background Music** (plays throughout the game)
+- **Collision Sound Effects**:
+- Ball hitting a wall
+- Block breaking
+- Platform bouncing
+- 
+- **System Sounds**:
+- Menu selection (selecting_sound)
+- Level victory (win_sound)
+- Loss (lose_sound)
+- Long victory sound (victory_sound)
+- Long defeat sound (losing_sound)
 
-![Pause Screen](https://i.postimg.cc/Gt5djf3h/Screenshot-20251103-175849.png)
+### **6. Graphics and Visual Effects**
+- **Downloadable textures** for all game elements:
+- Walls, blocks, platform
+- Ball sprites (1 frame for each skin)
+- **Custom pixel font** (ARCADECLASSIC.TTF)
+- **Victory menu animation** (flying balls)
+- **Smooth game state transitions**
 
-* **Victory Screen**: Upon passing through all the levels, a victory screen displays a congratulatory message, allowing the player to return to the title screen. Some animation, possibly from lab class exercises, should play in the background to indicate the game's completion. You are at liberty to come up with the animation.
+---
+Project Structure
 
-![Victory Screen](https://i.postimg.cc/CL5KfGhW/Screenshot-20251103-175933.png)
+**Source Files**
 
-## Additional Requirements
+| File | Purpose |
+|------|-----------|
+| `breakout.cpp` | Main game loop, `main()` function, `update()` and `draw()` functions |
+| `game.h/.cpp` | Definitions of structures, levels, global variables, game state |
+| `graphics.h/.cpp` | All drawing functions: menu, game field, interface |
+| `assets.h/.cpp` | Loading and unloading resources (textures, sounds, fonts) |
+| `level.h/.cpp` | Level logic: loading, collision checking, working with level data |
+| `ball.h/.cpp` | Ball logic: movement, collisions, spawning |
+| `paddle.h/.cpp` | Paddle logic: movement, bounding |
+| `sprite.h/.cpp` | Sprite structure and functions |
 
-* **Additional Levels**: Add at least *three extra levels* to the game. These levels should be more challenging than the ones given. You may add more levels if you want.
+### **Assets**
 
-* **Additional Game Elements**: Introduce at least *three new elements* to the game. These could include collectibles, moving obstacles, additional balls, turning the game 3-D, special time events, portals, more advanced bounce-off physics, improved collision detecion, or other modifications to the gameplay. Let your creativity guide you.
+| Directory | Contents |
+|------------|------------|
+| `data/images/` | Graphic resources: `wall.png`, `block.png`, `paddle.png`, `ball0-3.png` |
+| `data/sounds/` | Sound files: `win.wav`, `lose.wav`, `victory.wav`, `selecting.wav`, `background.wav`, etc. |
+| `data/fonts/` | Fonts: `ARCADECLASSIC.TTF` |
 
-* **Game Over Screen**: Implement *a 'Game Over' screen* that displays a message when the player loses the game, such as when the player runs out of lives or the ball leaves the level. This screen should allow the player to return to the title screen or try again.
+### **Configuration files**
+- `CMakeLists.txt` - CMake build system configuration
 
-* **Additional Sounds**: Add at least *three new sounds* to the game. These sounds could accompany actions like bouncing off obstacles, picking up collectibles, or exiting the final level.
+---
 
-* **Background Music**: Incorporate at least *one music track* into the game. This track should play on at least one of the screens. Ensure the track is royalty-free or that you have usage rights. Store the music files in the `data/music/` directory and keep them reasonably sized.
+Build and Run Instructions
 
-## Practical Requirements
+### **System Requirements**
+- **CMake** (version 3.15+)
+- **C++ Compiler** (MSVC, GCC 9+, Clang 10+)
+- **vcpkg Dependency Manager** (for installing Raylib)
+- **Raylib Library** (installed via vcpkg)
 
-* Develop the code **independently of your peers** and maintain a **detailed project commit history**. Be aware that points will be withheld for any suspicion of code plagiarism, even if it's unfounded. Additionally, consistent progress must be evident in your project commit history to receive any points at all.
+**Step-by-Step Build**
 
-* Rewrite the `Readme.md` file with a description of your game and a list of the features that you have implemented. **Note that partially implementing some features is preferable to not implementing any.**
-
-* Ensure that the game is playable and contains all necessary files. **It should be straightforward for the instructor to set up and start the game with minimal effort.**
-
-## Deliverables
-
-* Develop the game within the `<repository>` directory. This directory should include a `data/` subdirectory containing all game assets (images, sprites, fonts, sounds, etc.).
-
-* Organize your code into `.h` and `.cpp` files. Each file should contain related constants, variables, and functions.
-
-* Place your main game loop into the `breakout.cpp` file.
-
-Upon completion, your Project directory should have an organized structure similar to the following example:
-
+1. **Cloning the Repository**
+```bash
+git clone ...
+cd simple-breakout-project
 ```
-.
-└── <repository>
-    ├── data
-    │   ├── fonts
-    │   │   └── ...
-    │   ├── images
-    │   │   └── ...
-    │   ├── music
-    │   │   └── ...
-    │   └── sounds
-    │       └── ...
-    ├── breakout.cpp
-    ├── game.h
-    ├── <various header and C++ files>.h/cpp
-    ├── ... (.idea, .gitignore, .clang-format, CMakeLists.txt, other files)
-    └── Readme.md
+
+2. **Installing Dependencies via vcpkg**
+```bash
+vcpkg install raylib:x64-windows # For Windows
+# or
+vcpkg install raylib:x64-linux # For Linux
 ```
 
-[Fork](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo) our repository first, then clone it. If you skip this step, you will not be able to push your changes. Commit regularly, such as after implementing a feature (ensure the program is in a compilable state).
+3. **Project Configuration with CMake**
+```bash
+cmake -B build -S . -DCMAKE_TOOLCHAIN_FILE=[PATH_TO_VCPKG]/scripts/buildsystems/vcpkg.cmake
+
+# Example for Windows (vcpkg in C:/src/vcpkg):
+cmake -B build -S . -DCMAKE_TOOLCHAIN_FILE=C:/src/vcpkg/scripts/buildsystems/vcpkg.cmake
+```
+
+4. **Building the Project**
+```bash
+cmake --build build --config Release
+```
+
+5. **Running the Game**
+```bash
+# Windows
+./build/Release/breakout.exe
+
+# Linux/macOS
+./build/breakout
+```
+
+**Setting the Working Directory in CLion**
+To load resources correctly, set the working directory:
+1. In the `Run` menu → `Edit Configurations`
+2. Select the `breakout` target
+3. In the `Working directory` field, enter: `$ProjectFileDir$`
+4. Save and run
+
+Game Controls
+
+### **Basic Controls**
+| Action | Keys |
+|----------|---------|
+| Platform move left | `A` or `←` |
+| Platform move right | `D` or `→` |
+| Pause/resume game | `ESC` |
+| Exit game | `Q` |
+
+### **Menu Controls**
+| Context | Action | Keys |
+|----------|----------|-----|
+| Main Menu | Start Game | `ENTER` |
+| Main Menu | Open Shop | `T` |
+| Level Select | Select Level 1-6 | `1`-`6` |
+| Level Select | Return to Menu | `M` |
+| Shop | Navigate Up/Down | `W`/`S` or `↑`/`↓` |
+| Shop | Buy/Equip Skin | `ENTER` |
+| Shop | Return to Menu | `M` |
+| Pause Screen | Resume Game | `ESC` |
+| Pause Screen | Level Select | `S` |
+| Pause Screen | Main Menu | `M` |
+| Win/Loss Screen | Replay Level | `ENTER` |
+| Win/Loss Screen | Next Level | `N` |
+| Win/Loss Screen | Previous Level | `B` |
+| Win/Loss Screen | Level Select | `S` |
 
 ---
 
-## Project Setup Notes
+**State Machine**
+The game uses a state machine with 7 states:
+1. **menu_state** - Main menu
+2. **level_select_state** - Level selection
+3. **in_game_state** - Active game
+4. **paused_state** - Paused game
+5. **victory_state** - Level victory
+6. **game_over_state** - Defeat
+7. **shop_state** - Skin shop
 
-Set up the raylib project as you have done in previous labs for graphical assignments.
+Technologies and libraries used
 
-Before attempting to run the code for the `breakout` target, please ensure that you set the `Working directory` correctly in your CLion IDE.
+- Programming language: C++17
+- Graphics library: [Raylib 4.5](https://www.raylib.com)
+- Build system: CMake 3.20+
+- Dependency management: vcpkg
+- Font: ARCADECLASSIC (pixel font)
 
-The current working directory must point to the directory containing the necessary resource files (e.g., `data/images/`, `data/fonts/`, and `data/sound|music/`). Failure to do so will result in these resources not being loaded properly, and you will not see or hear the intended visuals or sounds in the game.
+---
 
-To set the working directory:
+## Author
 
-1. Open the `Run` menu and find the `Edit configurations` button there in CLion.
-2. Select the `breakout` target.
-3. Locate the `Working directory` field.
-4. Set it to the `$ProjectFileDir$` value (this ensures it points to the root project directory with the `data` folder).
-5. Save your configuration and run the target again.
-
-If you encounter any issues, double-check that the paths to the resource files are correct relative to the working directory.
-
-## Implementation Tips
-
-- Read the raylib [cheatsheet](https://www.raylib.com/cheatsheet/cheatsheet.html) to discover what is possible.
-- Explore the raylib [examples](https://www.raylib.com/examples.html) for inspiration.
-- Spend time searching for ways to break your program: that will help you eliminate edge cases and bugs.
-- Log values and verify their correctness if stumbling across a bug.
-- Use compilation and linking errors to your advantage: _read_ them.
-- Use the debug tool to resolve crashes.
-
-## Deadline
-
-Refer to the specific course or assignment page on Moodle for detailed information about deadlines and the grading rubric.
-
-## Links
-
-### raylib
-
-* [Wiki](https://github.com/raysan5/raylib/wiki)
-* [Cheatsheet](https://www.raylib.com/cheatsheet/cheatsheet.html)
-* [Examples](https://www.raylib.com/examples.html)
-
-### Tools
-
-* [libresprite](https://libresprite.github.io/#!/)
-* [jsfxr](https://sfxr.me/)
-
-## Books
-
-* Introduction to Programming with C++, 3rd Edition by Daniel Liang
-
-## Credits
-
-* [Luna Maltseva](https://github.com/lunamaltseva)
+- Developer: Bermet Chintemirova
+- Course: Introduction to Programming
+- Institution: American University of Central Asia
+- This project is for educational purposes and demonstrates the application of procedural programming principles, graphics, and sound in C++.
