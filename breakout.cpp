@@ -91,23 +91,31 @@ void update()
         if (!game_over_initialized) {
             derive_graphics_metrics();
             game_over_initialized = true;
+
+            coins_earned_this_game = player_score / 10;
+            player_coins += coins_earned_this_game;
         }
 
         if (IsKeyPressed(KEY_ENTER)) {
             load_level(0);
-            player_score = 0;
             game_state = in_game_state;
             game_over_initialized = false;
+            player_score = 0;
+            coins_earned_this_game = 0;
         }
 
         if (IsKeyPressed(KEY_S)) {
             game_state = level_select_state;
             game_over_initialized = false;
+            player_score = 0;
+            coins_earned_this_game = 0;
         }
 
         if (IsKeyPressed(KEY_M)) {
             game_state = menu_state;
             game_over_initialized = false;
+            player_score = 0;
+            coins_earned_this_game = 0;
         }
     }
 
@@ -117,6 +125,9 @@ void update()
             derive_graphics_metrics();
             init_victory_menu();
             victory_initialized = true;
+
+            coins_earned_this_game = player_score / 10;
+            player_coins += coins_earned_this_game;
         }
 
         victory_timer += GetFrameTime();
@@ -126,6 +137,8 @@ void update()
             load_level(0);
             game_state = in_game_state;
             victory_initialized = false;
+            player_score = 0;
+            coins_earned_this_game = 0;
         }
 
         if (IsKeyPressed(KEY_N)) {
@@ -134,6 +147,8 @@ void update()
                 load_level(0);
                 game_state = in_game_state;
                 victory_initialized = false;
+                player_score = 0;
+                coins_earned_this_game = 0;
             }
         }
 
@@ -143,12 +158,16 @@ void update()
                 load_level(0);
                 game_state = in_game_state;
                 victory_initialized = false;
+                player_score = 0;
+                coins_earned_this_game = 0;
             }
         }
 
         if (IsKeyPressed(KEY_S)) {
             game_state = level_select_state;
             victory_initialized = false;
+            player_score = 0;
+            coins_earned_this_game = 0;
         }
     }
 
@@ -197,6 +216,8 @@ int main()
     load_sounds();
 
     player_score = 0;
+    player_coins = 0;
+    coins_earned_this_game = 0;
 
     while (!WindowShouldClose()) {
         BeginDrawing();

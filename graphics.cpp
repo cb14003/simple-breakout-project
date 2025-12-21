@@ -140,7 +140,7 @@ void draw_ui()
 
     const Text boxes_remaining = {
         "BLOCKS " + std::to_string(current_level_blocks),
-        { 0.5f, 0.925f },
+{ 0.5f, 0.88f },
         48.0f,
         WHITE,
         4.0f,
@@ -150,7 +150,7 @@ void draw_ui()
 
     const Text score_display = {
         "SCORE: " + std::to_string(player_score),
-        { 0.5f, 0.9625f },
+        { 0.5f, 0.94f },
         48.0f,
         YELLOW,
         4.0f,
@@ -283,7 +283,7 @@ void draw_victory_menu()
 
     const Text score_text = {
         "Score: " + std::to_string(player_score),
-        { 0.50f, 0.55f },
+        { 0.50f, 0.48f },
         48.0f,
         YELLOW,
         4.0f,
@@ -291,16 +291,36 @@ void draw_victory_menu()
     };
     draw_text(score_text);
 
-    const Text victory_subtitle = {"Press Enter to Restart", {0.50f, 0.65f}, 32.0f, WHITE, 4.0f, &menu_font};
+    const Text coins_text = {
+        "Coins earned: " + std::to_string(coins_earned_this_game),
+        { 0.50f, 0.56f },
+        48.0f,
+        GOLD,
+        4.0f,
+        &menu_font
+    };
+    draw_text(coins_text);
+
+    const Text total_coins_text = {
+        "Total coins: " + std::to_string(player_coins),
+        { 0.50f, 0.64f },
+        48.0f,
+        Color{255, 215, 0, 255},
+        4.0f,
+        &menu_font
+    };
+    draw_text(total_coins_text);
+
+    const Text victory_subtitle = {"Press Enter to Restart", {0.50f, 0.70f}, 32.0f, WHITE, 4.0f, &menu_font};
     draw_text(victory_subtitle);
 
-    const Text next_level_text = {"N - Next Level", {0.50f, 0.72f}, 32.0f, WHITE, 4.0f, &menu_font};
+    const Text next_level_text = {"N - Next Level", {0.50f, 0.77f}, 32.0f, WHITE, 4.0f, &menu_font};
     draw_text(next_level_text);
 
-    const Text prev_level_text = {"B - Previous Level", {0.50f, 0.79f}, 32.0f, WHITE, 4.0f, &menu_font};
+    const Text prev_level_text = {"B - Previous Level", {0.50f, 0.84f}, 32.0f, WHITE, 4.0f, &menu_font};
     draw_text(prev_level_text);
 
-    const Text menu_text = {"S - Level Select", {0.50f, 0.86f}, 32.0f, WHITE, 4.0f, &menu_font};
+    const Text menu_text = {"S - Level Select", {0.50f, 0.91f}, 32.0f, WHITE, 4.0f, &menu_font};
     draw_text(menu_text);
 }
 
@@ -310,7 +330,7 @@ void draw_level_select_menu()
 
     Text title = {
         "Select Level",
-        { 0.5f, 0.25f },
+{ 0.5f, 0.15f },
         96.0f,
         RED,
         4.0f,
@@ -318,10 +338,20 @@ void draw_level_select_menu()
     };
     draw_text(title);
 
+    Text coins_text = {
+        "Coins: " + std::to_string(player_coins),
+        { 0.5f, 0.25f },
+        48.0f,
+        Color{255, 215, 0, 255},
+        4.0f,
+        &menu_font
+    };
+    draw_text(coins_text);
+
     for (size_t i = 0; i < level_count; ++i) {
         Text level_text = {
             "Press " + std::to_string(i + 1) + " - Level " + std::to_string(i + 1),
-            { 0.5f, 0.40f + 0.08f * i },
+            { 0.5f, 0.35f + 0.08f * i },
             32.0f,
             WHITE,
             4.0f,
@@ -332,7 +362,7 @@ void draw_level_select_menu()
 
     Text back_text = {
         "M - Back to Menu",
-        { 0.5f, 0.85f },
+         { 0.5f, 0.88f },
         28.0f,
         WHITE,
         4.0f,
@@ -347,7 +377,7 @@ void draw_game_over_menu()
 
     const Text game_over_title = {
         "GAME OVER",
-        { 0.50f, 0.35f },
+        { 0.50f, 0.30f },
         96.0f,
         RED,
         4.0f,
@@ -357,7 +387,7 @@ void draw_game_over_menu()
 
     const Text score_text = {
         "Score: " + std::to_string(player_score),
-        { 0.50f, 0.50f },
+        { 0.50f, 0.45f },
         48.0f,
         WHITE,
         4.0f,
@@ -365,9 +395,29 @@ void draw_game_over_menu()
     };
     draw_text(score_text);
 
+    const Text coins_earned_text = {
+        "Coins earned: " + std::to_string(coins_earned_this_game),
+        { 0.50f, 0.53f },
+        48.0f,
+        GOLD,
+        4.0f,
+        &menu_font
+    };
+    draw_text(coins_earned_text);
+
+    const Text coins_text = {
+        "Total Coins: " + std::to_string(player_coins),
+        { 0.50f, 0.61f },
+        48.0f,
+        Color{255, 215, 0, 255},
+        4.0f,
+        &menu_font
+    };
+    draw_text(coins_text);
+
     const Text restart_text = {
         "ENTER - Restart Level",
-        { 0.50f, 0.65f },
+        { 0.50f, 0.71f },
         32.0f,
         WHITE,
         4.0f,
@@ -377,7 +427,7 @@ void draw_game_over_menu()
 
     const Text level_select_text = {
         "S - Level Select",
-        { 0.50f, 0.73f },
+        { 0.50f, 0.77f },
         32.0f,
         WHITE,
         4.0f,
@@ -387,7 +437,7 @@ void draw_game_over_menu()
 
     const Text menu_text = {
         "M - Back to Menu",
-        { 0.50f, 0.81f },
+        { 0.50f, 0.83f },
         32.0f,
         WHITE,
         4.0f,

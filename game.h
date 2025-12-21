@@ -28,6 +28,8 @@ inline float victory_timer = 0.0f;
 inline float victory_animation_angle = 0.0f;
 inline bool victory_initialized = false;
 inline int player_score = 0;
+inline int player_coins = 0;
+inline int coins_earned_this_game = 0;
 inline bool game_over_initialized = false;
 
 inline char level_1_data[] = {
